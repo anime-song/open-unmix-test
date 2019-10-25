@@ -26,8 +26,8 @@ def _add_lstm_layer(
 
 def open_unmix(
         input_layer,
-        hidden_size=128,
-        n_layers=1,
+        hidden_size=512,
+        n_layers=3,
         unidirectional=False):
 
     if n_layers <= 0:
