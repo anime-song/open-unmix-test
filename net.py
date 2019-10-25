@@ -40,7 +40,7 @@ def open_unmix(
 
     _, nb_channels, _, nb_bins = K.int_shape(input_layer)
 
-    # (nb_samples, nb_channels, nb_frames, nb_bins) to (nb_samples, nb_frames, nb_bins * nb_channels)
+    # to (nb_samples, nb_frames, nb_bins * nb_channels)
     x = L.Reshape((-1, nb_bins * nb_channels), name="umx_reshape_1")(input_layer)
 
     x = L.Dense(hidden_size, use_bias=False, name="umx_fc1")(x)
@@ -65,6 +65,8 @@ def open_unmix(
     x = L.BatchNormalization()(x)
     x = L.Activation("relu")(x)
     # x = L.ReLU(1.0)(x)
+
+    # to (nb_samples, nb_channels, nb_frames, nb_bins)
     x = L.Reshape((nb_channels, -1, nb_bins), name="umx_reshape_2")(x)
     return x
 
